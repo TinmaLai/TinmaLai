@@ -1,16 +1,26 @@
-name: Generate Snake Animation
+name: generate animation
 
 on:
+  # run automatically every 24 hours
   schedule:
-    - cron: "0 0 * * *"   # chạy mỗi ngày lúc 0h UTC
+    - cron: "0 */24 * * *" 
+  
+  # allows to manually run the job at any time
   workflow_dispatch:
+  
+  # run on every push on the master branch
   push:
     branches:
-      - main
+    - master
+    
+  
 
 jobs:
-  build:
+  generate:
+    permissions: 
+      contents: write
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
